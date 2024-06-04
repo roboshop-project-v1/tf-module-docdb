@@ -22,12 +22,12 @@ resource "aws_security_group_rule" "main" {
   to_port           = 27017
   protocol          = "tcp"
   cidr_blocks       = var.sg_ingress_cidr
-  security_group_id = aws_security_group.main.id
+  security_group_id = aws_security_group.docdb.id
 }
 
 
 resource "aws_vpc_security_group_egress_rule" "main" {
-  security_group_id = aws_security_group.main.id
+  security_group_id = aws_security_group.docdb.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
