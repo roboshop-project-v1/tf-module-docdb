@@ -7,7 +7,7 @@ resource "aws_docdb_subnet_group" "main" {
 
 
 
-resource "aws_security_group" "main" {
+resource "aws_security_group" "docdb" {
   name        = "${local.name_prefix}-sg"
   description = "${local.name_prefix}-sg"
   vpc_id      = var.vpc_id
@@ -45,6 +45,7 @@ resource "aws_docdb_cluster" "main" {
   skip_final_snapshot     = var.skip_final_snapshot
   db_subnet_group_name = aws_docdb_subnet_group.main.name
   db_cluster_parameter_group_name = aws_docdb_cluster_parameter_group.main.name
+  vpc_security_group_ids = [aws_security_group.docdb.id]
   tags = var.tags
   engine_version = var.engine_version
 }
